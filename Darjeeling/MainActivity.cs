@@ -34,6 +34,15 @@ namespace Darjeeling
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			// Get textview to display one of the checklist names
+			TextView tv1 = FindViewById<TextView> (Resource.Id.textView1);
+			tv1.Text = "hi there";
+
+			Android.Database.ICursor c = db.RawQuery ("select * from checkLists where checkListName = 'Widgeon'", null);
+			if (c.MoveToFirst ()) {
+				tv1.Text = c.GetString (1).ToString ();
+			}
+
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button> (Resource.Id.myButton);
