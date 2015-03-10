@@ -18,7 +18,6 @@ namespace Darjeeling
 
 		protected override void OnCreate (Bundle bundle)
 		{
-
 			// Create or open database
 			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
 			db.ExecSQL ("create table if not exists checkLists(checkListID integer, checkListName varchar, checkListDesc varchar);");
@@ -26,22 +25,36 @@ namespace Darjeeling
 			db.ExecSQL ("insert into checkLists values (0, 'Widgeon','Widgeon Daysailer');");
 			db.ExecSQL ("insert into checkLists values (1, 'Bowrider', 'Mo Motor, Mo Fun');");
 
-
-
-
 			base.OnCreate (bundle);
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
+
+			Button btn = new Button (this);
+			TextView txt = new TextView (this);
+			txt.Text = "sup?";
+			btn.Text = "hello world";
+			btn.SetBackgroundColor(Android.Graphics.Color.AliceBlue);
+			//this.AddContentView (ll, lp);
+
+			ll.AddView (txt, lp);
+			txt.Visibility = ViewStates.Visible;
+
 			// Get textview to display one of the checklist names
 			TextView tv1 = FindViewById<TextView> (Resource.Id.textView1);
-			tv1.Text = "hi there";
+
 
 			Android.Database.ICursor c = db.RawQuery ("select * from checkLists where checkListName = 'Widgeon'", null);
 			if (c.MoveToFirst ()) {
 				tv1.Text = c.GetString (1).ToString ();
 			}
+
+			tv1.Text = "hi there";
+
+
 
 			// Get our button from the layout resource,
 			// and attach an event to it
@@ -53,8 +66,10 @@ namespace Darjeeling
 
 
 
+
+
+
 		}
 	}
 }
-
 
