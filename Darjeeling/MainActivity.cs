@@ -30,13 +30,24 @@ namespace Darjeeling
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
+			Button myBtn = new Button (this);
+			myBtn.Text = "hi there";
+
+			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
+			ll.AddView (myBtn, lp);
+
+
+
+			/*
 			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
 
 			Button btn = new Button (this);
 			TextView txt = new TextView (this);
 			txt.Text = "sup?";
-			btn.Text = "hello world";
+			txt.SetBackgroundColor = Android.Graphics.Color.AntiqueWhite;
+			btn.Text = "hello world";	
 			btn.SetBackgroundColor(Android.Graphics.Color.AliceBlue);
 			//this.AddContentView (ll, lp);
 
@@ -45,7 +56,7 @@ namespace Darjeeling
 
 			// Get textview to display one of the checklist names
 			TextView tv1 = FindViewById<TextView> (Resource.Id.textView1);
-
+			
 
 			Android.Database.ICursor c = db.RawQuery ("select * from checkLists where checkListName = 'Widgeon'", null);
 			if (c.MoveToFirst ()) {
@@ -53,7 +64,7 @@ namespace Darjeeling
 			}
 
 			tv1.Text = "hi there";
-
+			*/
 
 
 			// Get our button from the layout resource,
