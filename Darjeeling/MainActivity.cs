@@ -20,15 +20,28 @@ namespace Darjeeling
 		{
 			// Create or open database
 			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
-			db.ExecSQL ("create table if not exists checkLists(checkListID integer, checkListName varchar, checkListDesc varchar);");
 
-			db.ExecSQL ("insert into checkLists values (0, 'Widgeon','Widgeon Daysailer');");
-			db.ExecSQL ("insert into checkLists values (1, 'Bowrider', 'Mo Motor, Mo Fun');");
+			// Create checkListTypes table
+			db.ExecSQL ("create table if not exists checkListType(checkListTypeID integer, checkListType varchar);");
+			// Add values to checkListType table
+			db.ExecSQL ("insert into checkListType values(0, 'Driveway');");
+			db.ExecSQL ("insert into checkListType values(1, 'Pre-Float');");
+
+			// Create checkLists table
+			db.ExecSQL ("create table if not exists checkLists(checkListID integer, checkListType integer, checkListName varchar, checkListDesc varchar);");
+			//  Add values to checkLists table
+			db.ExecSQL ("insert into checkLists values (0, 0, 'Widgeon','Widgeon Daysailer');");
+			db.ExecSQL ("insert into checkLists values (1, 1, 'Widgeon','Widgeon Daysailer');");
+			db.ExecSQL ("insert into checkLists values (2, 0, 'Bowrider', 'Mo Motor, Mo Fun');");
+			db.ExecSQL ("insert into checkLists values (3, 1, 'Bowrider', 'Mo Motor, Mo Fun');");
+			db.ExecSQL ("insert into checkLists values (4, 0, 'HobieCat','Hang yer ass out fun');");
+			db.ExecSQL ("insert into checkLists values (5, 1, 'HobieCat','Hang yer ass out fun');");
 
 			base.OnCreate (bundle);
 
 			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
-			ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItem1, items);
+			ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
+			
 
 			// Set our view from the "main" layout resource
 
@@ -83,6 +96,20 @@ namespace Darjeeling
 			*/
 
 		}
+		//  End onCreate method
+
+		protected override void OnListItemClick (ListView l, View v, int position, long id)
+		{
+			base.OnListItemClick (l, v, position, id);
+			var t = items [position];
+			l.ChoiceMode = ChoiceMode.Multiple;
+			l.SetItemChecked (position, true);
+			Android.Widget.Toast.MakeText (this, t, Android.Widget.ToastLength.Short).Show ();
+
+		}
+
+
+
 
 
 	}
