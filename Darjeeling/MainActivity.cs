@@ -12,10 +12,10 @@ using Android.OS;
 namespace Darjeeling
 {
 	[Activity (Label = "Darjeeling", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : Activity
+	public class MainActivity : ListActivity
 	{
 		int count = 1;
-
+		string[] items;
 		protected override void OnCreate (Bundle bundle)
 		{
 			// Create or open database
@@ -27,16 +27,21 @@ namespace Darjeeling
 
 			base.OnCreate (bundle);
 
-			// Set our view from the "main" layout resource
-			SetContentView (Resource.Layout.Main);
+			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
+			ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItem1, items);
 
+			// Set our view from the "main" layout resource
+
+			//SetContentView (Resource.Layout.Main);
+
+			/*
 			Button myBtn = new Button (this);
 			myBtn.Text = "hi there";
 
 			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
 			ll.AddView (myBtn, lp);
-
+			*/
 
 
 			/*
@@ -69,18 +74,17 @@ namespace Darjeeling
 
 			// Get our button from the layout resource,
 			// and attach an event to it
+			/*
 			Button button = FindViewById<Button> (Resource.Id.myButton);
 			
 			button.Click += delegate {
 				button.Text = string.Format ("{0} clicks!", count++);
 			};
-
-
-
-
-
+			*/
 
 		}
+
+
 	}
 }
 
