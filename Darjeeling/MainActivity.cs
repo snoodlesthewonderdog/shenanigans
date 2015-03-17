@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Android.App;
 using Android.Content;
@@ -40,8 +40,32 @@ namespace Darjeeling
 			base.OnCreate (bundle);
 
 			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
-			ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
-			
+			//ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
+
+
+			Android.Database.ICursor c = db.RawQuery ("select checkListName from checkLists", null); // where checkListName = 'Widgeon'", null);
+
+			StartManagingCursor (c);
+
+			TextView tv1 = new TextView (this);
+			if (c.MoveToFirst ()) {
+				tv1.Text = c.GetString(0).ToString ();  //c.GetString (1).ToString ();
+			}
+
+			Android.Widget.Toast.MakeText (this, tv1.Text.ToString(), Android.Widget.ToastLength.Long).Show (); //  (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
+			/*
+			string[] fromColumns = new string[]{ "checkListName" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
+			int[] toControlIDs = new int[] { Android.Resource.Id.Text1 };
+
+			//ListView lv = new ListView (this);
+
+			//ListAdapter = new SimpleCursorAdapter(this, Android.Resource.Layout.SimpleListItemMultipleChoice, c, fromColumns, toControlIDs);
+			*/
+			StopManagingCursor (c);
+			c.Close ();
+
+
+
 
 			// Set our view from the "main" layout resource
 
@@ -103,8 +127,12 @@ namespace Darjeeling
 			base.OnListItemClick (l, v, position, id);
 			var t = items [position];
 			l.ChoiceMode = ChoiceMode.Multiple;
-			l.SetItemChecked (position, true);
-			Android.Widget.Toast.MakeText (this, t, Android.Widget.ToastLength.Short).Show ();
+
+			//if (l.IsItemChecked(position) == true)
+			//	l.SetItemChecked (0, false);
+			//else
+			l.SetItemChecked (5, true);
+			Android.Widget.Toast.MakeText (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
 
 		}
 
