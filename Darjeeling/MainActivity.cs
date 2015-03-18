@@ -12,12 +12,23 @@ using Android.OS;
 namespace Darjeeling
 {
 	[Activity (Label = "Darjeeling", MainLauncher = true, Icon = "@drawable/icon")]
-	public class MainActivity : ListActivity
+	public class MainActivity : Activity
 	{
 		int count = 1;
 		string[] items;
+		ListView listView;
+		Darjeeling.VegetableDatabase vdb;
+		ICursor c;
 		protected override void OnCreate (Bundle bundle)
 		{
+			base.OnCreate (bundle);
+
+			// Set our view from the "main" layout resource
+			SetContentView (Resource.Layout.Main);
+			listView = FindViewById<ListView> (Resource.Id.listView1);
+			vdb = new VegetableDatabase (this);
+			c = vdb.ReadableDatabase.RawQuery ("select * from vegetables", null);
+
 			// Create or open database
 			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
 
@@ -28,7 +39,7 @@ namespace Darjeeling
 			db.ExecSQL ("insert into checkListType values(1, 'Pre-Float');");
 
 			// Create checkLists table
-			db.ExecSQL ("create table if not exists checkLists(checkListID integer, checkListType integer, checkListName varchar, checkListDesc varchar);");
+			db.ExecSQL ("create table if not exists checkLists([_id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, checkListID integer, checkListType integer, checkListName text, checkListDesc text);");
 			//  Add values to checkLists table
 			db.ExecSQL ("insert into checkLists values (0, 0, 'Widgeon','Widgeon Daysailer');");
 			db.ExecSQL ("insert into checkLists values (1, 1, 'Widgeon','Widgeon Daysailer');");
@@ -37,41 +48,29 @@ namespace Darjeeling
 			db.ExecSQL ("insert into checkLists values (4, 0, 'HobieCat','Hang yer ass out fun');");
 			db.ExecSQL ("insert into checkLists values (5, 1, 'HobieCat','Hang yer ass out fun');");
 
-			base.OnCreate (bundle);
+
 
 			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
 			//ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
+			//listView.Adapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
 
-
-			Android.Database.ICursor c = db.RawQuery ("select checkListName from checkLists", null); // where checkListName = 'Widgeon'", null);
+			//c = db.RawQuery ("select * from checkLists", null); // where checkListName = 'Widgeon'", null);
 
 			StartManagingCursor (c);
 
-			TextView tv1 = new TextView (this);
-			if (c.MoveToFirst ()) {
-				tv1.Text = c.GetString(0).ToString ();  //c.GetString (1).ToString ();
+			//c.MoveToFirst ();
+			//Android.Widget.Toast.MakeText (this, tv1.Text.ToString(), Android.Widget.ToastLength.Long).Show (); //  (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
+
+			string[] fromColumns = new string[]{ "name" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
+			int[] toControlIDs = new int[] { Android.Resource.Id.Text1 };
+			try{
+			listView.Adapter = new SimpleCursorAdapter(this, Android.Resource.Layout.SimpleListItem1, c, fromColumns, toControlIDs, 0);
+			}
+			catch(SQLiteException e){
+				Console.WriteLine ("whoops, " + e.Message.ToString ());
 			}
 
-			Android.Widget.Toast.MakeText (this, tv1.Text.ToString(), Android.Widget.ToastLength.Long).Show (); //  (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
-			/*
-			string[] fromColumns = new string[]{ "checkListName" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
-			int[] toControlIDs = new int[] { Android.Resource.Id.Text1 };
-
-			//ListView lv = new ListView (this);
-
-			//ListAdapter = new SimpleCursorAdapter(this, Android.Resource.Layout.SimpleListItemMultipleChoice, c, fromColumns, toControlIDs);
-			*/
-			StopManagingCursor (c);
-			c.Close ();
-
-
-
-
-			// Set our view from the "main" layout resource
-
-			//SetContentView (Resource.Layout.Main);
-
-			/*
+		/*
 			Button myBtn = new Button (this);
 			myBtn.Text = "hi there";
 
@@ -121,7 +120,7 @@ namespace Darjeeling
 
 		}
 		//  End onCreate method
-
+		/*
 		protected override void OnListItemClick (ListView l, View v, int position, long id)
 		{
 			base.OnListItemClick (l, v, position, id);
@@ -135,6 +134,23 @@ namespace Darjeeling
 			Android.Widget.Toast.MakeText (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
 
 		}
+		*/
+		protected void OnListItemClick(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
+		{
+			var obj = listView.Adapter.GetItem(e.Position);
+			var curs = (ICursor)obj;
+			var text = curs.GetString(1); // 'name' is column 1
+			Android.Widget.Toast.MakeText(this, text, Android.Widget.ToastLength.Short).Show();
+			System.Console.WriteLine("Clicked on " + text);
+		}
+
+		protected override void OnDestroy()
+		{
+			StopManagingCursor(c);
+			c.Close ();
+
+			base.OnDestroy();
+		}
 
 
 
@@ -142,4 +158,5 @@ namespace Darjeeling
 
 	}
 }
+
 
