@@ -18,6 +18,7 @@ namespace Darjeeling
 		string[] items;
 		ListView listView;
 		Darjeeling.VegetableDatabase vdb;
+		Darjeeling.PreFloatDatabase pdb;
 		ICursor c;
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -27,27 +28,9 @@ namespace Darjeeling
 			SetContentView (Resource.Layout.Main);
 			listView = FindViewById<ListView> (Resource.Id.listView1);
 			vdb = new VegetableDatabase (this);
+			//pdb = new PreFloatDatabase (this);
 			c = vdb.ReadableDatabase.RawQuery ("select * from vegetables", null);
-
-			// Create or open database
-			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
-
-			// Create checkListTypes table
-			db.ExecSQL ("create table if not exists checkListType(checkListTypeID integer, checkListType varchar);");
-			// Add values to checkListType table
-			db.ExecSQL ("insert into checkListType values(0, 'Driveway');");
-			db.ExecSQL ("insert into checkListType values(1, 'Pre-Float');");
-
-			// Create checkLists table
-			db.ExecSQL ("create table if not exists checkLists([_id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, checkListID integer, checkListType integer, checkListName text, checkListDesc text);");
-			//  Add values to checkLists table
-			db.ExecSQL ("insert into checkLists values (0, 0, 'Widgeon','Widgeon Daysailer');");
-			db.ExecSQL ("insert into checkLists values (1, 1, 'Widgeon','Widgeon Daysailer');");
-			db.ExecSQL ("insert into checkLists values (2, 0, 'Bowrider', 'Mo Motor, Mo Fun');");
-			db.ExecSQL ("insert into checkLists values (3, 1, 'Bowrider', 'Mo Motor, Mo Fun');");
-			db.ExecSQL ("insert into checkLists values (4, 0, 'HobieCat','Hang yer ass out fun');");
-			db.ExecSQL ("insert into checkLists values (5, 1, 'HobieCat','Hang yer ass out fun');");
-
+			//c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
 
 
 			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
@@ -55,13 +38,15 @@ namespace Darjeeling
 			//listView.Adapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
 
 			//c = db.RawQuery ("select * from checkLists", null); // where checkListName = 'Widgeon'", null);
-
+			TextView tv1 = new TextView (this);
 			StartManagingCursor (c);
 
 			//c.MoveToFirst ();
+
+			//tv1.Text = c.GetString(0).ToString();
 			//Android.Widget.Toast.MakeText (this, tv1.Text.ToString(), Android.Widget.ToastLength.Long).Show (); //  (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
 
-			string[] fromColumns = new string[]{ "name" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
+			string[] fromColumns = new string[]{ "checkListName" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
 			int[] toControlIDs = new int[] { Android.Resource.Id.Text1 };
 			try{
 			listView.Adapter = new SimpleCursorAdapter(this, Android.Resource.Layout.SimpleListItem1, c, fromColumns, toControlIDs, 0);
@@ -95,10 +80,6 @@ namespace Darjeeling
 			ll.AddView (txt, lp);
 			txt.Visibility = ViewStates.Visible;
 
-			// Get textview to display one of the checklist names
-			TextView tv1 = FindViewById<TextView> (Resource.Id.textView1);
-			
-
 			Android.Database.ICursor c = db.RawQuery ("select * from checkLists where checkListName = 'Widgeon'", null);
 			if (c.MoveToFirst ()) {
 				tv1.Text = c.GetString (1).ToString ();
@@ -116,6 +97,28 @@ namespace Darjeeling
 			button.Click += delegate {
 				button.Text = string.Format ("{0} clicks!", count++);
 			};
+
+			// Create or open database
+			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
+
+			// Create checkListTypes table
+			db.ExecSQL ("create table if not exists checkListType(checkListTypeID integer, checkListType varchar);");
+			// Add values to checkListType table
+			db.ExecSQL ("insert into checkListType values(0, 'Driveway');");
+			db.ExecSQL ("insert into checkListType values(1, 'Pre-Float');");
+
+			// Create checkLists table
+			db.ExecSQL ("create table if not exists checkLists([_id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, checkListID integer, checkListType integer, checkListName text, checkListDesc text);");
+			//  Add values to checkLists table
+			db.ExecSQL ("insert into checkLists values (0, 0, 'Widgeon','Widgeon Daysailer');");
+			db.ExecSQL ("insert into checkLists values (1, 1, 'Widgeon','Widgeon Daysailer');");
+			db.ExecSQL ("insert into checkLists values (2, 0, 'Bowrider', 'Mo Motor, Mo Fun');");
+			db.ExecSQL ("insert into checkLists values (3, 1, 'Bowrider', 'Mo Motor, Mo Fun');");
+			db.ExecSQL ("insert into checkLists values (4, 0, 'HobieCat','Hang yer ass out fun');");
+			db.ExecSQL ("insert into checkLists values (5, 1, 'HobieCat','Hang yer ass out fun');");
+
+
+
 			*/
 
 		}
@@ -158,5 +161,4 @@ namespace Darjeeling
 
 	}
 }
-
 
