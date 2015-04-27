@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using Android.App;
 using Android.Content;
@@ -13,11 +13,9 @@ namespace Darjeeling
 {
 	[Activity (Label = "Darjeeling", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
-	{
-		int count = 1;
+	{		
 		string[] items;
 		ListView listView;
-		Darjeeling.VegetableDatabase vdb;
 		Darjeeling.PreFloatDatabase pdb;
 		ICursor c;
 		protected override void OnCreate (Bundle bundle)
@@ -25,119 +23,30 @@ namespace Darjeeling
 			base.OnCreate (bundle);
 
 			// Set our view from the "main" layout resource
+			//SetContentView (Resource.Layout.Main);
 			SetContentView (Resource.Layout.Main);
 			listView = FindViewById<ListView> (Resource.Id.listView1);
-			vdb = new VegetableDatabase (this);
-			//pdb = new PreFloatDatabase (this);
-			c = vdb.ReadableDatabase.RawQuery ("select * from vegetables", null);
-			//c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
+			pdb = new PreFloatDatabase (this);
+			c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
+			StartManagingCursor (c);
+			listView.Adapter = (IListAdapter)new HomeScreenCursorAdapter (this,c);
 
-
-			items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
+			//items = new string[]{ "Fruits", "Vegetables","Flower Buds","Legumes","Bulbs","Tubers"};
 			//ListAdapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
 			//listView.Adapter = new ArrayAdapter<String> (this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
 
-			//c = db.RawQuery ("select * from checkLists", null); // where checkListName = 'Widgeon'", null);
-			TextView tv1 = new TextView (this);
-			StartManagingCursor (c);
-
-			//c.MoveToFirst ();
-
-			//tv1.Text = c.GetString(0).ToString();
-			//Android.Widget.Toast.MakeText (this, tv1.Text.ToString(), Android.Widget.ToastLength.Long).Show (); //  (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
-
-			string[] fromColumns = new string[]{ "checkListName" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
-			int[] toControlIDs = new int[] { Android.Resource.Id.Text1 };
+			/*string[] fromColumns = new string[]{ "checkListName" }; //{ "checkListID, checkListType, checkListName, checkListDesc" };
+			int[] toControlIDs = new int[] {Android.Resource.Id.Text1};
+			//SimpleCursorAdapter myAdapter = new SimpleCursorAdapter (this, Android.Resource.Layout.SimpleListItem1, c, fromColumns, toControlIDs);
 			try{
-			listView.Adapter = new SimpleCursorAdapter(this, Android.Resource.Layout.SimpleListItem1, c, fromColumns, toControlIDs, 0);
+				listView.Adapter = new SimpleCursorAdapter(this,Android.Resource.Layout.SimpleListItem1 , c, fromColumns, toControlIDs, 0);			
 			}
 			catch(SQLiteException e){
 				Console.WriteLine ("whoops, " + e.Message.ToString ());
-			}
-
-		/*
-			Button myBtn = new Button (this);
-			myBtn.Text = "hi there";
-
-			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
-			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
-			ll.AddView (myBtn, lp);
-			*/
-
-
-			/*
-			LinearLayout ll = (LinearLayout)FindViewById (Resource.Id.linearLayout1);
-			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.MatchParent);
-
-			Button btn = new Button (this);
-			TextView txt = new TextView (this);
-			txt.Text = "sup?";
-			txt.SetBackgroundColor = Android.Graphics.Color.AntiqueWhite;
-			btn.Text = "hello world";	
-			btn.SetBackgroundColor(Android.Graphics.Color.AliceBlue);
-			//this.AddContentView (ll, lp);
-
-			ll.AddView (txt, lp);
-			txt.Visibility = ViewStates.Visible;
-
-			Android.Database.ICursor c = db.RawQuery ("select * from checkLists where checkListName = 'Widgeon'", null);
-			if (c.MoveToFirst ()) {
-				tv1.Text = c.GetString (1).ToString ();
-			}
-
-			tv1.Text = "hi there";
-			*/
-
-
-			// Get our button from the layout resource,
-			// and attach an event to it
-			/*
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			
-			button.Click += delegate {
-				button.Text = string.Format ("{0} clicks!", count++);
-			};
-
-			// Create or open database
-			Android.Database.Sqlite.SQLiteDatabase db = OpenOrCreateDatabase ("darjeeling", FileCreationMode.Private, null);
-
-			// Create checkListTypes table
-			db.ExecSQL ("create table if not exists checkListType(checkListTypeID integer, checkListType varchar);");
-			// Add values to checkListType table
-			db.ExecSQL ("insert into checkListType values(0, 'Driveway');");
-			db.ExecSQL ("insert into checkListType values(1, 'Pre-Float');");
-
-			// Create checkLists table
-			db.ExecSQL ("create table if not exists checkLists([_id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, checkListID integer, checkListType integer, checkListName text, checkListDesc text);");
-			//  Add values to checkLists table
-			db.ExecSQL ("insert into checkLists values (0, 0, 'Widgeon','Widgeon Daysailer');");
-			db.ExecSQL ("insert into checkLists values (1, 1, 'Widgeon','Widgeon Daysailer');");
-			db.ExecSQL ("insert into checkLists values (2, 0, 'Bowrider', 'Mo Motor, Mo Fun');");
-			db.ExecSQL ("insert into checkLists values (3, 1, 'Bowrider', 'Mo Motor, Mo Fun');");
-			db.ExecSQL ("insert into checkLists values (4, 0, 'HobieCat','Hang yer ass out fun');");
-			db.ExecSQL ("insert into checkLists values (5, 1, 'HobieCat','Hang yer ass out fun');");
-
-
-
-			*/
-
+			}*/
 		}
 		//  End onCreate method
-		/*
-		protected override void OnListItemClick (ListView l, View v, int position, long id)
-		{
-			base.OnListItemClick (l, v, position, id);
-			var t = items [position];
-			l.ChoiceMode = ChoiceMode.Multiple;
 
-			//if (l.IsItemChecked(position) == true)
-			//	l.SetItemChecked (0, false);
-			//else
-			l.SetItemChecked (5, true);
-			Android.Widget.Toast.MakeText (this, t + " " + position, Android.Widget.ToastLength.Short).Show ();
-
-		}
-		*/
 		protected void OnListItemClick(object sender, Android.Widget.AdapterView.ItemClickEventArgs e)
 		{
 			var obj = listView.Adapter.GetItem(e.Position);
@@ -151,14 +60,30 @@ namespace Darjeeling
 		{
 			StopManagingCursor(c);
 			c.Close ();
-
 			base.OnDestroy();
 		}
 
+		public class HomeScreenCursorAdapter : CursorAdapter {
+			Activity context;
+			public HomeScreenCursorAdapter(Activity context, ICursor c)
+				: base (context, c)
+			{
+				this.context = context;
+			}
 
+			public override void BindView(View view, Context context, ICursor cursor)
+			{
+				var txtCheckListName = view.FindViewById<TextView> (Resource.Id.txtCheckListName); //(Android.Resource.Id.Text1);
+				var txtCheckListDesc = view.FindViewById<TextView> (Resource.Id.txtCheckListDesc); //(Android.Resource.Id.Text2); 
+				txtCheckListName.Text = cursor.GetString (3);
+				txtCheckListDesc.Text = cursor.GetString (4);
+			}
 
-
-
+			public override View NewView(Context context, ICursor cursor, ViewGroup parent)
+			{
+				return this.context.LayoutInflater.Inflate (Resource.Layout.myList, parent, false);
+			}
+		}
 	}
 }
 
