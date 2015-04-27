@@ -11,6 +11,7 @@ namespace Darjeeling {
 
 		public override void OnCreate(SQLiteDatabase db){
 			//  fire the statement that creates the checkLists table
+			// This is a comment just to test Git
 			try{
 			db.ExecSQL (create_checkLists_table);			
 			//  Now pre-fill the checkLists table
