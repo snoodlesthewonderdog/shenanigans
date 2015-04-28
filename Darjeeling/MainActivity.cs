@@ -18,6 +18,8 @@ namespace Darjeeling
 		ListView listView;
 		Darjeeling.PreFloatDatabase pdb;
 		ICursor c;
+		ICursor a;
+		ContentValues cv;
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -27,6 +29,15 @@ namespace Darjeeling
 			SetContentView (Resource.Layout.Main);
 			listView = FindViewById<ListView> (Resource.Id.listView1);
 			pdb = new PreFloatDatabase (this);
+
+			cv = new ContentValues ();
+
+			cv.Put ("checkListType", 0);
+			cv.Put ("checkListName", "Bertram");
+			cv.Put ("checkListDesc", "Big Luxury");
+
+			pdb.ReadableDatabase.Insert ("checkLists", null, cv);
+
 			c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
 			StartManagingCursor (c);
 			listView.Adapter = (IListAdapter)new HomeScreenCursorAdapter (this,c);

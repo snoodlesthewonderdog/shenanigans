@@ -11,7 +11,6 @@ namespace Darjeeling {
 
 		public override void OnCreate(SQLiteDatabase db){
 			//  fire the statement that creates the checkLists table
-			// This is a comment just to test Git
 			try{
 			db.ExecSQL (create_checkLists_table);			
 			//  Now pre-fill the checkLists table
@@ -26,7 +25,9 @@ namespace Darjeeling {
 				Console.WriteLine ("Problem with the database " + e.Message.ToString ());
 			}
 
-		}
+			//  
+
+		}// End for OnCreate
 		public override void OnUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 			throw new NotImplementedException ();
 		}
