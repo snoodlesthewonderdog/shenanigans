@@ -11,7 +11,7 @@ using Android.OS;
 
 namespace Darjeeling
 {
-	[Activity (Label = "Darjeeling", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "PreFloat", Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{		
 		string[] items;
@@ -19,7 +19,7 @@ namespace Darjeeling
 		Darjeeling.PreFloatDatabase pdb;
 		ICursor c;
 		ICursor a;
-		ContentValues cv;
+		ContentValues cv;	
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
