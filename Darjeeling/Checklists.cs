@@ -14,13 +14,20 @@ using Android.Widget;
 namespace Darjeeling
 {
 	[Activity (Label = "PreFloat - Start Checking")]			
-	public class StartChecking : Activity
+	public class Checklists : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
 			// Create your application here
+			SetContentView(Resource.Layout.Checklists);
+
+			int x;
+			for (x = 0; x < 10; x++) {
+				Console.WriteLine ("Hello World");
+			}
+
 		}
 	}
 }

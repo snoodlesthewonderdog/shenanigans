@@ -39,7 +39,7 @@ namespace Darjeeling
 		}
 		public void onClickStartChecking (View view){
 
-			Intent intent = new Intent(this, typeof(StartChecking));
+			Intent intent = new Intent(this, typeof(Checklists));
 			StartActivity(intent);
 		}
 

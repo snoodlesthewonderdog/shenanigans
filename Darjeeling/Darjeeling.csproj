@@ -52,7 +52,7 @@
     <Compile Include="Home.cs" />
     <Compile Include="History.cs" />
     <Compile Include="ManageLists.cs" />
-    <Compile Include="StartChecking.cs" />
+    <Compile Include="Checklists.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -70,6 +70,7 @@
     <AndroidResource Include="Resources\layout\custom_row_view.xml" />
     <AndroidResource Include="Resources\layout\myList.xml" />
     <AndroidResource Include="Resources\layout\Home.axml" />
+    <AndroidResource Include="Resources\layout\Checklists.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
 </Project>

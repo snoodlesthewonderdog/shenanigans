@@ -3,4 +3,7 @@
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Darjeeling</string>
 	<string name="saigeetha">Sai Geetha\'s Example</string>
+	<string name="StartChecking">Start Checking</string>
+	<string name="ManageLists">Manage Lists</string>
+	<string name="History">History</string>
 </resources>

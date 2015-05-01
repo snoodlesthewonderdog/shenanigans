@@ -107,16 +107,19 @@ namespace Darjeeling
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int custom_row_view = 2130903040;
+			public const int Checklists = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Home = 2130903041;
+			public const int custom_row_view = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int Main = 2130903042;
+			public const int Home = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int myList = 2130903043;
+			public const int Main = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int myList = 2130903044;
 			
 			static Layout()
 			{
@@ -130,6 +133,15 @@ namespace Darjeeling
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f040005
+			public const int History = 2130968581;
+			
+			// aapt resource value: 0x7f040004
+			public const int ManageLists = 2130968580;
+			
+			// aapt resource value: 0x7f040003
+			public const int StartChecking = 2130968579;
 			
 			// aapt resource value: 0x7f040001
 			public const int app_name = 2130968577;

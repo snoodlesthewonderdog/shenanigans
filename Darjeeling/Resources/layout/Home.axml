@@ -5,17 +5,17 @@
     android:layout_height="fill_parent">
     <Button
         android:id="@+id/btnStartChecking"
-        android:text="Button"
+        android:text="@string/StartChecking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btnManageLists"
-        android:text="Button"
+        android:text="@string/ManageLists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btnHistory"
-        android:text="Button"
+        android:text="@string/History"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
