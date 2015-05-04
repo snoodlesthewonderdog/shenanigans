@@ -36,6 +36,11 @@ namespace Darjeeling
 			ManageLists.Click += delegate(object sender, EventArgs e) {
 				onClickManageLists(view);
 			};
+
+			Button Lists = FindViewById<Button> (Resource.Id.btnList);
+			Lists.Click += delegate(object sender, EventArgs e) {
+				onClickList(view);
+			};
 		}
 		public void onClickStartChecking (View view){
 
@@ -52,6 +57,11 @@ namespace Darjeeling
 			Intent intent = new Intent (this, typeof(History));
 			StartActivity (intent);
 
+		}
+
+		public void onClickList (View view){
+			Intent intent = new Intent (this, typeof(MainActivity));
+			StartActivity (intent);
 		}
 	}
 }

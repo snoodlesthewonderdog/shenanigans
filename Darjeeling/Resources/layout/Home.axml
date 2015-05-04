@@ -18,4 +18,9 @@
         android:text="@string/History"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btnList"
+        android:text="@string/List"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

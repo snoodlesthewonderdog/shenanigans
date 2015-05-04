@@ -60,11 +60,14 @@ namespace Darjeeling
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050007
-			public const int analogClock1 = 2131034119;
+			// aapt resource value: 0x7f050008
+			public const int analogClock1 = 2131034120;
 			
 			// aapt resource value: 0x7f050005
 			public const int btnHistory = 2131034117;
+			
+			// aapt resource value: 0x7f050006
+			public const int btnList = 2131034118;
 			
 			// aapt resource value: 0x7f050004
 			public const int btnManageLists = 2131034116;
@@ -72,11 +75,11 @@ namespace Darjeeling
 			// aapt resource value: 0x7f050003
 			public const int btnStartChecking = 2131034115;
 			
-			// aapt resource value: 0x7f050006
-			public const int linearLayout1 = 2131034118;
+			// aapt resource value: 0x7f050007
+			public const int linearLayout1 = 2131034119;
 			
-			// aapt resource value: 0x7f050008
-			public const int listView1 = 2131034120;
+			// aapt resource value: 0x7f050009
+			public const int listView1 = 2131034121;
 			
 			// aapt resource value: 0x7f050000
 			public const int text1 = 2131034112;
@@ -87,11 +90,11 @@ namespace Darjeeling
 			// aapt resource value: 0x7f050002
 			public const int text3 = 2131034114;
 			
-			// aapt resource value: 0x7f05000a
-			public const int txtCheckListDesc = 2131034122;
+			// aapt resource value: 0x7f05000b
+			public const int txtCheckListDesc = 2131034123;
 			
-			// aapt resource value: 0x7f050009
-			public const int txtCheckListName = 2131034121;
+			// aapt resource value: 0x7f05000a
+			public const int txtCheckListName = 2131034122;
 			
 			static Id()
 			{
@@ -136,6 +139,9 @@ namespace Darjeeling
 			
 			// aapt resource value: 0x7f040005
 			public const int History = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int List = 2130968582;
 			
 			// aapt resource value: 0x7f040004
 			public const int ManageLists = 2130968580;
