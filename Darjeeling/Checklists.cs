@@ -27,11 +27,12 @@ namespace Darjeeling
 
 			// Create your application here
 			SetContentView(Resource.Layout.Checklists);
+			ListView lv = FindViewById<ListView> (Resource.Id.lvChecklists);
 			pdb = new PreFloatDatabase (this);
 
 			c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
 			StartManagingCursor (c);
-
+			lv.Adapter = (IListAdapter)new CheckLists (this, c);
 
 			int x;
 			for (x = 0; x < 10; x++) {
@@ -39,28 +40,45 @@ namespace Darjeeling
 			}
 
 		}
-	}
 
-	public class CheckLists : CursorAdapter {
-		Activity context;
-		public CheckLists(Activity context, ICursor c)
-			: base (context, c)
+		protected override void OnDestroy()
 		{
-			this.context = context;
+			StopManagingCursor(c);
+			c.Close ();
+			base.OnDestroy();
 		}
 
-		public override void BindView(View view, Context context, ICursor cursor)
-		{
-			var btnCheckListName = view.FindViewById<Button> (Resource.Id.btnChecklist);	
-			btnCheckListName.Text = Cursor.GetString (3);
 
-			//txtCheckListName.Text = cursor.GetString (3);
-			//txtCheckListDesc.Text = cursor.GetString (4);
-		}
 
-		public override View NewView(Context context, ICursor cursor, ViewGroup parent)
-		{
-			return this.context.LayoutInflater.Inflate (Resource.Layout.Checklists, parent, false);
+		public class CheckLists : CursorAdapter {
+			Activity context;
+			public CheckLists(Activity context, ICursor c)
+				: base (context, c)
+			{
+				this.context = context;
+			}
+
+			public override void BindView(View view, Context context, ICursor cursor)
+			{
+				var btnCheckListName = view.FindViewById<Button> (Resource.Id.btnChecklist);	
+				btnCheckListName.Text = Cursor.GetString (3);
+
+				btnCheckListName.Click += delegate(object sender, EventArgs e) {
+					onClickDisplayList(view);
+				};
+
+				//txtCheckListName.Text = cursor.GetString (3);
+				//txtCheckListDesc.Text = cursor.GetString (4);
+			}
+
+			public override View NewView(Context context, ICursor cursor, ViewGroup parent)
+			{
+				return this.context.LayoutInflater.Inflate (Resource.Layout.Checklists, parent, false);
+			}
+
+			public void onClickDisplayList(View view){
+				Console.Write ("onClickDisplayList was hit");
+			}
 		}
 	}
 }

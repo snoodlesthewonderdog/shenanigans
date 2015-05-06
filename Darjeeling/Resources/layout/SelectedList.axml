@@ -3,17 +3,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-<!-- 
- This should display a list of checklists as taken from the database
- Each checklist should get a button.
-
- -->
     <ListView
-        android:id="@+id/lvChecklists"
+        android:id="@+id/lvSelectedList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/btnChecklist" />
 </LinearLayout>

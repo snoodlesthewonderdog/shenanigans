@@ -71,6 +71,7 @@
     <AndroidResource Include="Resources\layout\myList.xml" />
     <AndroidResource Include="Resources\layout\Home.axml" />
     <AndroidResource Include="Resources\layout\Checklists.axml" />
+    <AndroidResource Include="Resources\layout\SelectedList.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
 </Project>
