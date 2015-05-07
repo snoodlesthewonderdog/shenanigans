@@ -77,7 +77,8 @@ namespace Darjeeling
 			}
 
 			public void onClickDisplayList(View view){
-				Console.Write ("onClickDisplayList was hit");
+				Intent intent = new Intent (this, typeof(SelectedList));
+				StartActivity(intent);
 			}
 		}
 	}

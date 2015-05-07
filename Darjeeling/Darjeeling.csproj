@@ -53,6 +53,7 @@
     <Compile Include="History.cs" />
     <Compile Include="ManageLists.cs" />
     <Compile Include="Checklists.cs" />
+    <Compile Include="SelectedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
