@@ -105,6 +105,9 @@ namespace Darjeeling
 			// aapt resource value: 0x7f05000c
 			public const int txtCheckListName = 2131034124;
 			
+			// aapt resource value: 0x7f05000f
+			public const int txtTest = 2131034127;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

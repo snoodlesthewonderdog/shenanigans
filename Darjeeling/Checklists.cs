@@ -32,13 +32,14 @@ namespace Darjeeling
 
 			c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
 			StartManagingCursor (c);
-			lv.Adapter = (IListAdapter)new CheckLists (this, c);
+			lv.Adapter = (IListAdapter)new CheckList (this, c);
+			lv.ItemClick += 
 
 			int x;
 			for (x = 0; x < 10; x++) {
 				Console.WriteLine ("Hello World");
 			}
-
+				
 		}
 
 		protected override void OnDestroy()
@@ -47,12 +48,12 @@ namespace Darjeeling
 			c.Close ();
 			base.OnDestroy();
 		}
+	}
 
-
-
-		public class CheckLists : CursorAdapter {
+		public class CheckList : CursorAdapter 
+		{
 			Activity context;
-			public CheckLists(Activity context, ICursor c)
+			public CheckList(Activity context, ICursor c)
 				: base (context, c)
 			{
 				this.context = context;
@@ -64,7 +65,8 @@ namespace Darjeeling
 				btnCheckListName.Text = Cursor.GetString (3);
 
 				btnCheckListName.Click += delegate(object sender, EventArgs e) {
-					onClickDisplayList(view);
+					//onClickDisplayList(context);
+					Intent intent = new Intent (context, typeof(SelectedList));
 				};
 
 				//txtCheckListName.Text = cursor.GetString (3);
@@ -76,11 +78,13 @@ namespace Darjeeling
 				return this.context.LayoutInflater.Inflate (Resource.Layout.Checklists, parent, false);
 			}
 
-			public void onClickDisplayList(View view){
-				Intent intent = new Intent (this, typeof(SelectedList));
-				StartActivity(intent);
+			public static void onClickDisplayList(Context context){
+				Intent intent = new Intent (context, typeof(SelectedList));
+				//StartActivity (intent);
 			}
 		}
-	}
+
+
+	
 }
 

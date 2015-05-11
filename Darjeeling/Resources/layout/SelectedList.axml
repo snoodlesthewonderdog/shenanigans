@@ -7,4 +7,8 @@
         android:id="@+id/lvSelectedList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/txtTest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
