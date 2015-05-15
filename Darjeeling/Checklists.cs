@@ -33,13 +33,19 @@ namespace Darjeeling
 			c = pdb.ReadableDatabase.RawQuery ("select * from checkLists", null);
 			StartManagingCursor (c);
 			lv.Adapter = (IListAdapter)new CheckList (this, c);
-			lv.ItemClick += 
+			lv.ItemClick += itemClicked; 
 
-			int x;
-			for (x = 0; x < 10; x++) {
-				Console.WriteLine ("Hello World");
-			}
-				
+				//+= delegate(object sender, AdapterView.ItemClickEventArgs e) {
+				//var listview = sender as ListView;
+				//var t = c.MoveToPosition (e.Position);
+				//Android.Widget.Toast.MakeText(this, "Hello World", Android.Widget.ToastLength.Short).Show();
+			//}; 				
+		}
+
+		protected void itemClicked(object sender, AdapterView.ItemClickEventArgs e){
+			var listview = sender as ListView;
+			var t = c.MoveToPosition (e.Position);
+			Android.Widget.Toast.MakeText(this, "Hello World", Android.Widget.ToastLength.Short).Show();
 		}
 
 		protected override void OnDestroy()
@@ -63,11 +69,12 @@ namespace Darjeeling
 			{
 				var btnCheckListName = view.FindViewById<Button> (Resource.Id.btnChecklist);	
 				btnCheckListName.Text = Cursor.GetString (3);
+				
 
-				btnCheckListName.Click += delegate(object sender, EventArgs e) {
+				//btnCheckListName.Click += delegate(object sender, EventArgs e) {
 					//onClickDisplayList(context);
-					Intent intent = new Intent (context, typeof(SelectedList));
-				};
+					//Intent intent = new Intent (context, typeof(SelectedList));
+				//};
 
 				//txtCheckListName.Text = cursor.GetString (3);
 				//txtCheckListDesc.Text = cursor.GetString (4);
@@ -82,9 +89,6 @@ namespace Darjeeling
 				Intent intent = new Intent (context, typeof(SelectedList));
 				//StartActivity (intent);
 			}
-		}
-
-
-	
+		}	
 }
 
